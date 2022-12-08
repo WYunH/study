@@ -92,7 +92,7 @@ console.log(obj); // { name: 'won' }
 - 일반 함수와의 구분을 위해 메소드라 한다
 
 ```js
-var person = {
+const person = {
   // 프로퍼티
   name: "won",
 
