@@ -121,11 +121,12 @@ console.log(person1.name === person2.name) // true
 ```
 
 
-### 참조에 의한 전달
+### 참조에 의한 전달(참조 할당, 참조 복사)
 
 - 객체를 가리키는 변수를 다른 변수에 할당하면 원본의 참조 값이 복사되어 전달되는 것
 - 다른 프로그래밍 언어의 참조에 의한 전달과 다르다
 - 자바스크립트에는 포인터가 존재하지 않는다
+- 얕은 복사
 
 ⭐ 값에 의한 전달과 참조에 의한 전달 모두 식별자가 기억하는 메모리 공간에 저장되어 있는 값을 복사해서 전달한다
 
@@ -139,7 +140,7 @@ const person = {
 };
 
 // 참조 값 복사
-// copy와 person이 동일한 객체 참조
+// copy와 person이 동일한 객체 참조(해당 객체에 접근하는 통로를 2개로 만든 것)
 const copy = person;
 console.log(copy === person); // true
 
@@ -158,7 +159,39 @@ console.log(copy); // { name: 'WON', address: 'Seoul' }
 
 ### 얕은 복사 / 깊은 복사 shallow copy, deep copy
 
-- 얕은 복사(shallow copy) : 깊이 1 까지만 복사, 객체의 중첩된 객체는 참조 값을 복사한다
-- 깊은 복사(deep copy) : 깊이 2 이상 전부 복사, 객체의 중첩된 객체까지 원시 값처럼 완전히 복사
+#### 객체 얕은 복사
 
+1. `Object.assign()` 사용
+2. Spread Operator `...` 사용
+
+- 깊이 1 까지만 복사
+- 객체의 중첩된 객체는 참조 값을 복사한다
+- 주소값만 복사 후 같은 메모리를 가리킨다
+
+```js
+let user = { name: "won" };
+
+let obj1 = { isPerson: true };
+let obj2 = { number: 123 };
+
+// obj1과 obj2 프로퍼티 user로 복사
+Object.assign(user, obj1, obj2);
+
+console.log(user) // {name: 'won', isPerson: true, number: 123}
+
+// 목표 객체에 동일한 프로퍼티가 있는 경우 값을 덮어씌운다
+Object.assign(user, { name: "vvon" });
+
+console.log(user) // {name: 'vvon', isPerson: true, number: 123}
+```
+
+#### 깊은 복사
+
+1. Lodash 라이브러리 `clonedeep()` 사용
+
+- 깊이 2 이상 전부 복사
+- 객체 트리의 최말단 노드까지 복제
+- 객체의 중첩된 객체까지 원시 값처럼 완전히 복사
+- 데이터 자체를 복사(가장 많은 메모리 소모, 느린 처리 속도)
+- 완전히 독립적인 메모리를 차지하게 된다
 
