@@ -36,14 +36,14 @@ console.log(x); // ReferenceError: x is not defined
 - 지역 변수의 선언이 지역 스코프의 선두로 끌어 올려진 것처럼 동작하는 것
 
 ```js
-const x = "global";
+var x = "global";
 
 function foo() {
   // x에 값 할당되기 전
   console.log(x); // undefined 
   
   // x에 값 할당
-  const x = "local";
+  var x = "local";
 }
 
 //foo 함수 호출
